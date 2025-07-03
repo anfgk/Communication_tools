@@ -1,3 +1,4 @@
+import http from "http"; // http 모듈 불러오기
 import express from "express"; // express 불러오기
 import WebSocket from "ws"; // WebSocket 불러오기
 
@@ -12,9 +13,9 @@ app.use("/public", express.static(__dirname + "/public")); // 정적 파일(css,
 app.get("/", (_, res) => res.render("home")); // 홈(/)에 오면 home.pug 보여주기
 app.get("/*", (_, res) => res.redirect("/")); // 어떤 주소로 들어와도 홈 페이지로 보내기
 
-const handleListening = () => console.log(`Listening on http://localhost:3000`);
-// app.listen(3000, handleListening); // 3000번 포트에서 서버 실행
+const handleListen = () => console.log(`Listening on http://localhost:3000`);
 
-const server =http.createServer(app); // 서버 만들기
+const server = http.createServer(app); // 서버 만들기
+const wss = new WebSocket.Server({ server }); // http 서버,WebSocket 서버 같이 구동
 
-const wss = new WebSocket.Server({ server }); // http 서버, WebSocket 서버 둘 다 만들기
+server.listen(3000, handleListen); // 3000번 포트에서 서버 실행
