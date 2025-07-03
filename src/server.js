@@ -1,4 +1,5 @@
 import express from "express"; // express 불러오기
+import WebSocket from "ws"; // WebSocket 불러오기
 
 const app = express(); // 앱 만들기
 // 👉🏻 express()는 웹 서버 만들기 위한 기본 뼈대
@@ -12,4 +13,8 @@ app.get("/", (_, res) => res.render("home")); // 홈(/)에 오면 home.pug 보�
 app.get("/*", (_, res) => res.redirect("/")); // 어떤 주소로 들어와도 홈 페이지로 보내기
 
 const handleListening = () => console.log(`Listening on http://localhost:3000`);
-app.listen(3000, handleListening); // 3000번 포트에서 서버 실행
+// app.listen(3000, handleListening); // 3000번 포트에서 서버 실행
+
+const server =http.createServer(app); // 서버 만들기
+
+const wss = new WebSocket.Server({ server }); // http 서버, WebSocket 서버 둘 다 만들기
