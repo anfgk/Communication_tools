@@ -1,1 +1,1 @@
-alert("Hello");
+const socket = new WebSocket(`ws://${window.location.host}`); // 웹 클라이언트(브라우저)에서 WebSocket 서버에 연결할 때 사용
