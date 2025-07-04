@@ -22,6 +22,14 @@ const handleListen = () => console.log(`Listening on http://localhost:3000`);
 const server = http.createServer(app); // 서버 만들기
 const wss = new WebSocket.Server({ server }); // http 서버,WebSocket 서버 같이 구동
 
+function onSocketClose() {
+    console.log("Disconnected from the Browser ❌");
+}
+
+function onSocketMessage(message) {
+    console.log(message);
+}
+
 // WebSocket 연결이 새로 생겼을 때 실행되는 콜백 함수
 // function handleConnection(socket) {
 //     console.log(socket);
@@ -34,10 +42,9 @@ const wss = new WebSocket.Server({ server }); // http 서버,WebSocket 서버 �
 wss.on("connection", (socket) => {
 //   console.log(socket); // 연결된 사람 정보를 콘솔에 출력
     console.log("Connected to Browser ✅"); 
-    socket.on("close", () => console.log("Disconnected from the Browser ❌")); // 브라우저 쪽에서 연결을 끊었을 때 실행됨
-    // 클라이언트가 서버로 메시지를 보내면 실행되는 함수
+    socket.on("close",onSocketClose); // 브라우저 쪽에서 연결을 끊었을 때 실행됨
     socket.on("message", (message) => {
-    console.log(message.toString()); // 받은 메시지를 콘솔에 출력
+    console.log(message, onSocketMessage); // 받은 메시지를 콘솔에 출력
     }); 
     socket.send("hello!!!"); // 연결된 사람에게 메시지 보내기
 });

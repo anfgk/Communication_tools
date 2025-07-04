@@ -1,9 +1,15 @@
 const socket = new WebSocket(`ws://${window.location.host}`); // 웹 클라이언트(브라우저)에서 WebSocket 서버에 연결할 때 사용
 
 // 웹소켓 연결이 성공해서 열렸을 때 실행되는 함수
-socket.addEventListener("open", () => {
+// socket.addEventListener("open", () => {
+//     console.log("Connected to Server ⭕️"); 
+// });
+
+function handleOpen() {
     console.log("Connected to Server ⭕️"); 
-});
+}
+
+ socket.addEventListener("open", handleOpen)
 
 // 서버로부터 메시지를 받았을 때 실행되는 함수
 socket.addEventListener("message", (message) => {
