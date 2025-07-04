@@ -40,6 +40,7 @@ function onSocketClose() {
 // wss.on("connection", handleConnection); 
 // WebSocket 서버(wss)가 클라이언트와 연결될 때마다 handleConnection 함수를 호출하겠다는 의미
 
+// 연결된 사람들을 저장하는 배열
 const sockets = [];
 
 // 누군가 서버에 웹소켓으로 연결하면 실행됨
