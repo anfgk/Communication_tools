@@ -17,7 +17,9 @@ function handleOpen() {
 
 // 서버로부터 메시지를 받았을 때 실행되는 함수
 socket.addEventListener("message", (message) => {
-    console.log("New message: ", message.data);
+    const li = document.createElement("li"); // li 태그 생성
+    li.innerText = message.data; // li 태그에 메시지 추가
+    messageList.append(li); // li 태그를 messageList에 추가
 })
 
 // 서버와의 연결이 끊겼을 때 실행되는 함수
