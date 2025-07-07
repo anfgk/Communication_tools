@@ -59,16 +59,18 @@ wss.on("connection", (socket) => {
                 sockets.forEach((aSocket) => aSocket.send(`${socket.nickname}: ${message.payload}`)); // 모든 사람에게 메시지 보내기
             case "nickname": // 닉네임이 변경되었을 때
                 sockets["nickname"] = message.payload; // 닉네임 업데이트
-                
-                
         }
-        if(parsed.type === "new_message") {
-            sockets.forEach((aSocket) => aSocket.send(parsed.payload)); 
-        } else if(parsed.type === "nickname") {
-            console.log(parsed.payload);
-        }
+        // if(parsed.type === "new_message") {
+        //     sockets.forEach((aSocket) => aSocket.send(parsed.payload)); 
+        // } else if(parsed.type === "nickname") {
+        //     console.log(parsed.payload);
+        // }
     });
     // socket.send("hello!!!"); // 연결된 사람에게 메시지 보내기
 });
 
 server.listen(3000, handleListen); // 3000번 포트에서 서버 실행
+
+
+// socket.on("nickname", fn) // 닉네임 변경 이벤트 발생 시 fn 함수 실행
+// socket.on("notification",fn); // 알림 이벤트 발생 시 fn 함수 실행

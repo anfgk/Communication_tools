@@ -46,6 +46,9 @@ function handleSubmit(event) {
     const input = messageForm.querySelector("input"); // input 태그 선택
     // socket.send(input.value); // 서버에게 메시지 보내기
     socket.send(makeMessage("new_message", input.value)); // 서버에게 메시지 보내기
+    const li = document.createElement("li"); // li 태그 생성
+    li.innerText = `You: ${input.value}`; // li 태그에 메시지 추가
+    messageList.append(li); // li 태그를 messageList에 추가
     input.value = ""; // 보낸 메시지를 콘솔에 출력
 }
 
@@ -55,6 +58,7 @@ function handleNickSubmit(event) {
     const input = nickForm.querySelector("input"); // input 태그 선택
     // socket.send(input.value); // 서버에게 메시지 보내기
     socket.send(makeMessage("nickname", input.value)); // 서버에게 메시지 보내기
+    
 }
 
 messageForm.addEventListener("submit", handleSubmit) // form 태그에서 submit 이벤트가 발생했을 때 handleSubmit 함수를 실행
