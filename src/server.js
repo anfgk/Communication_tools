@@ -47,11 +47,26 @@ const sockets = [];
 wss.on("connection", (socket) => {
 //   console.log(socket); // 연결된 사람 정보를 콘솔에 출력
     sockets.push(socket); // 연결된 사람 정보를 배열에 추가
+    socket["nickname"] = "Anon"; // 닉네임 초기화
     console.log("Connected to Browser ✅"); 
     socket.on("close",onSocketClose); // 브라우저 쪽에서 연결을 끊었을 때 실행됨
     // 브라우저에서 메시지를 보내면 실행되는 함수
-    socket.on("message", (message) => {
-        sockets.forEach((aSocket) => aSocket.send(message));
+    socket.on("message", (msg) => {
+        const message = JSON.parse(msg); // 메시지 파싱
+        // 메시지 타입에 따라 분기
+        switch(message.type) {
+            case "new_message": // 새로운 메시지가 왔을 때
+                sockets.forEach((aSocket) => aSocket.send(`${socket.nickname}: ${message.payload}`)); // 모든 사람에게 메시지 보내기
+            case "nickname": // 닉네임이 변경되었을 때
+                sockets["nickname"] = message.payload; // 닉네임 업데이트
+                
+                
+        }
+        if(parsed.type === "new_message") {
+            sockets.forEach((aSocket) => aSocket.send(parsed.payload)); 
+        } else if(parsed.type === "nickname") {
+            console.log(parsed.payload);
+        }
     });
     // socket.send("hello!!!"); // 연결된 사람에게 메시지 보내기
 });

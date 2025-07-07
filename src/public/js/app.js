@@ -54,10 +54,7 @@ function handleNickSubmit(event) {
     event.preventDefault(); // 기본 동작 방지
     const input = nickForm.querySelector("input"); // input 태그 선택
     // socket.send(input.value); // 서버에게 메시지 보내기
-    socket.send({
-        type: "nickname",
-        payload: input.value,
-    });
+    socket.send(makeMessage("nickname", input.value)); // 서버에게 메시지 보내기
 }
 
 messageForm.addEventListener("submit", handleSubmit) // form 태그에서 submit 이벤트가 발생했을 때 handleSubmit 함수를 실행
